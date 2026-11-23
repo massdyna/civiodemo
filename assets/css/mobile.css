@@ -1,0 +1,77 @@
+/* ===== CIVIO — Mobile layer (เพิ่มเติมเท่านั้น ไม่แก้ของเดิม) =====
+   ใช้เฉพาะจอ ≤ 760px: ปุ่ม "ดูเพิ่มเติม", แถบติดต่อด้านล่าง, ตารางรุ่นเป็นการ์ด, ฟุตเตอร์พับได้ */
+.m-more-wrap,.m-bar{display:none}
+
+@media (max-width:760px){
+  html{-webkit-text-size-adjust:100%}
+  body{overflow-x:hidden;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+
+  /* ---- กันข้อความล้นจอ ---- */
+  .ct-txt strong,.ct-txt small,.ft2-col a,.ft2-cols a{overflow-wrap:anywhere;word-break:break-word}
+  img,video{max-width:100%}
+
+  h1,h2,h3{overflow-wrap:break-word}
+  .manifesto-title{font-size:clamp(25px,7.2vw,31px)!important}
+
+  /* ---- ฟอร์ม: ไม่ให้ iOS ซูมเอง ---- */
+  input,textarea,select{font-size:16px!important}
+
+  /* ---- เมนู: เลื่อนได้เมื่อรายการยาว ---- */
+  .main-nav.is-open{max-height:calc(100dvh - 78px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  .main-nav a,.nav-dropdown-toggle{min-height:48px}
+
+  /* ---- ปุ่ม ดูเพิ่มเติม ---- */
+  .m-hidden{display:none!important}
+  .m-more-wrap{display:flex;justify-content:center;margin:18px auto 0;padding:0 16px}
+  .m-more-wrap.is-inline{margin-top:10px;padding:0;justify-content:flex-start}
+  .m-more-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;
+    border:1.5px solid var(--green,#1e3a2e);border-radius:999px;background:#fff;color:var(--green,#1e3a2e);
+    font:700 15px/1 inherit;font-family:inherit;letter-spacing:.01em;cursor:pointer;-webkit-tap-highlight-color:transparent;
+    box-shadow:0 6px 18px rgba(20,50,35,.10);transition:transform .2s ease,background .2s ease,color .2s ease}
+  .m-more-btn:active{transform:scale(.97);background:#1e3a2e;color:#fff}
+  .m-more-btn i{display:inline-block;width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg) translateY(-2px);transition:transform .25s ease}
+  .m-more-btn[aria-expanded="true"] i{transform:rotate(-135deg) translateY(-1px)}
+  .m-more-btn em{font-style:normal;opacity:.7;font-weight:600}
+  .is-inline .m-more-btn{min-height:44px;padding:0 20px;font-size:14px;border-width:1px}
+  .m-just-shown{opacity:1!important;transform:none!important;animation:mFadeUp .45s ease both}
+  @keyframes mFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* ---- ตารางรุ่น → การ์ด ---- */
+  .model-table-wrap{overflow:visible!important;border:0!important;background:none!important;box-shadow:none!important}
+  .model-table,.model-table tbody,.model-table caption{display:block;width:100%;min-width:0!important}
+  .model-table caption{font-weight:700;font-size:14px;line-height:1.5;margin:0 0 12px;text-align:left}
+  .model-table thead{display:none}
+  .model-table tbody{display:grid;grid-template-columns:1fr;gap:12px}
+  .model-table tr{display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid rgba(30,58,46,.14);
+    border-radius:16px;overflow:hidden;box-shadow:0 6px 18px rgba(20,50,35,.07)}
+  .model-table tbody th{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+    padding:12px 16px;background:#1e3a2e;color:#fff;font-size:18px;text-align:left;border:0}
+  .model-table tbody th::after{content:attr(data-cap);font-size:13px;font-weight:600;color:#d7ee7a}
+  .model-table td{display:block;padding:10px 16px;border:0;border-top:1px solid rgba(30,58,46,.08);text-align:left;font-size:15px;font-weight:600}
+  .model-table td::before{content:attr(data-label);display:block;font-size:11px;font-weight:600;letter-spacing:.02em;opacity:.6;margin-bottom:2px}
+  .model-table td:first-of-type{display:none}
+
+  /* ---- ส่วนท้ายเว็บ: พับ/กางได้ ---- */
+  .ft2-col.m-acc>span{display:flex;align-items:center;justify-content:space-between;min-height:48px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .ft2-col.m-acc>span::after{content:"";width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg);transition:transform .25s ease;margin-right:4px}
+  .ft2-col.m-acc.is-open>span::after{transform:rotate(-135deg)}
+  .ft2-col.m-acc:not(.is-open)>a{display:none}
+  .ft2-col.m-acc:not(.ft2-addr)>a{min-height:44px;display:flex;align-items:center}
+  .ft2-col.m-acc:not(.is-open)>a{display:none}
+
+  /* ---- แถบติดต่อด้านล่าง (โทร / LINE / ปรึกษา) ---- */
+  .m-bar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:8px;
+    padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(255,255,255,.94);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid rgba(30,58,46,.12);
+    box-shadow:0 -8px 24px rgba(20,50,35,.10);transition:transform .3s ease}
+  .m-bar a{display:flex;align-items:center;justify-content:center;gap:7px;min-height:46px;border-radius:12px;font-weight:700;font-size:15px;
+    text-decoration:none;color:#1e3a2e;background:#eef3e6;-webkit-tap-highlight-color:transparent}
+  .m-bar a:active{transform:scale(.97)}
+  .m-bar a.m-bar-main{background:#1e3a2e;color:#fff}
+  .m-bar a.m-bar-line{background:#06c755;color:#fff}
+  .m-bar svg{width:18px;height:18px;flex:none}
+  .m-bar.is-away,html.m-nav-open .m-bar{transform:translateY(110%)}
+}
+@media (prefers-reduced-motion:reduce){.m-just-shown{animation:none}.m-more-btn,.m-bar{transition:none}}
